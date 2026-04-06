@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
 
 import { IsNotEmpty } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Tema } from '../tema/entities/tema.entity';
 
 @Entity({name: "tb_postagens"}) // criação da tabela no banco de dados, com o nome "tb_postagens"
 export class Postagem {
@@ -19,4 +20,9 @@ export class Postagem {
 
     @UpdateDateColumn() // criação da coluna "data" do tipo date, que é atualizada automaticamente toda vez que a postagem é atualizada
   data!: Date;
+
+  @ManyToOne(() => Tema, (tema) => tema.postagem, {
+    onDelete: "CASCADE" // quando um tema for deletado, todas as postagens relacionadas a ele também serão deletadas
+  })
+  tema: Tema
 }

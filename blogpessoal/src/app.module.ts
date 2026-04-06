@@ -1,12 +1,11 @@
 /* eslint-disable prettier/prettier */
 
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Postagem } from './postagem/entities/postagem.entity';
-import { PostagemController } from './postagem/controller/postagem.controller';
 import { PostagemModule } from './postagem/postagem.modules';
+import { TemaModule } from './postagem/tema/tema.module';
+import { Tema } from './postagem/tema/entities/tema.entity';
 
 @Module({
   imports: [
@@ -17,10 +16,11 @@ import { PostagemModule } from './postagem/postagem.modules';
       username: 'root',
       password: 'root',
       database: 'db_blogpessoal',
-      entities: [Postagem],
+      entities: [Postagem, Tema],
       synchronize: true,
     }),
     PostagemModule,
+    TemaModule,
   ],
   controllers: [],
   providers: [],
